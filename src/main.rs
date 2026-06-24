@@ -355,13 +355,25 @@ mod tests {
 
     fn make_img_1()-> RgbImage{
         RgbImage::from_raw(
-            2,
-            2,
+            4,
+            4,
             vec![
-                10, 20, 30, 35,
-                40, 50, 60, 65,
-                70, 80, 90, 95,
-                100, 110, 120, 125
+                15, 20, 25,
+                40, 45, 60,
+                80, 70, 90, 
+                100, 100, 130,
+                15, 20, 25,
+                40, 45, 60,
+                80, 70, 90, 
+                100, 100, 130,
+                15, 20, 25,
+                40, 45, 60,
+                80, 70, 90, 
+                100, 100, 130,
+                15, 20, 25,
+                40, 45, 60,
+                80, 70, 90, 
+                50, 50, 80,
             ],
         )
         .unwrap()
@@ -369,13 +381,25 @@ mod tests {
 
     fn make_img_2()-> RgbImage{
         RgbImage::from_raw(
-            2,
-            2,
+            4,
+            4,
             vec![
-                15, 20, 25, 30,
-                40, 45, 60, 70,
-                80, 70, 90, 95,
-                100, 100, 130, 135
+                15, 20, 25,
+                40, 45, 60,
+                80, 70, 90, 
+                100, 100, 130,
+                15, 20, 25,
+                40, 45, 60,
+                80, 70, 90, 
+                100, 100, 130,
+                15, 20, 25,
+                40, 45, 60,
+                80, 70, 90, 
+                100, 100, 130,
+                15, 20, 25,
+                40, 45, 60,
+                80, 70, 90, 
+                100, 100, 130,
             ],
         )
         .unwrap()
@@ -387,7 +411,7 @@ mod tests {
         let im2 = make_img_2();
 
         assert_eq!(l1_generic(&im1, &im1), 0);
-        assert_eq!(l1_generic(&im1, &im2), 55);
+        assert_eq!(l1_generic(&im1, &im2), 150);
     }
 
     #[test]
@@ -399,7 +423,8 @@ mod tests {
         let generic = l1_generic(&im1, &im2);
         let simd = unsafe{l1_x86_sse2(&im1, &im2)};
 
-        assert_eq!(simd, generic);
+        assert_eq!(simd, generic);  // Expected fail, the SIMD version is not working properly, it seems to be a problem.
+                                    // Like the other fonctions l1_x86_sse2(&im1, &im2) should return 150 as a result but it returns 0.
     }
 
     #[test]
